@@ -16,7 +16,6 @@ body {
   max-width: 600px;
   margin: 50px auto 0;
   padding: 16px;
-  border: 1px solid #333;
   border-radius: 8px;
 }
 .task-manager {
@@ -28,6 +27,11 @@ body {
 }
 #taskInput::placeholder {
   color: #b5b5b5;
+}
+#clearTasks {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
 }
 #task-list {
   display: flex;

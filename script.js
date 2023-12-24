@@ -17,6 +17,11 @@ function deleteTask(index) {
   displayTasks();
 }
 
+function clearAllTasks() {
+  tasks.length = 0;
+  displayTasks();
+}
+
 function checkTask(index) {
   completed = !completed;
   const text = document.querySelector(".form-check-label");
@@ -29,9 +34,17 @@ function displayTasks() {
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
+  const clearTasks = document.getElementById("clearTasks");
+  clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
+      Clear All Tasks
+    </button>`;
+
   tasks.forEach((task, index) => {
     const div = document.createElement("div");
-    div.setAttribute("class", "form-check border border-2 border-info bg-info-subtle p-2 mb-2 rounded");
+    div.setAttribute(
+      "class",
+      "form-check border border-2 border-info bg-info-subtle p-2 mb-2 rounded"
+    );
     div.setAttribute("id", "task-list");
     div.innerHTML = `<div id="task-list-form">
     <input
@@ -49,13 +62,12 @@ function displayTasks() {
     ${task}
     </label>
     </div>
+
     <button
       onclick="deleteTask(${index})"
-      class="btn btn-outline-danger shadow-sm px-2 py-1"
-      role="button"
-    >
-      Delete
-    </button>`;
+      class="btn btn-close shadow-sm px-2 py-1"
+      aria-label="Close"
+    />`;
     taskList.appendChild(div);
   });
 }
