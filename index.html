@@ -13,22 +13,32 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <div id="headTitle">
-        <h1 class="red">Semester 5: Minor Project</h1>
-        <h2>Task Manager Web App</h2>
+        <h1 class="text-primary">Semester 5: Minor Project</h1>
+        <h2 class="text-primary">Task Manager Web App</h2>
         <h3>By Anurag Vaishnav</h3>
       </div>
 
-      <div class="task-container">
+      <div class="task-container shadow-sm">
         <div class="task-manager">
-          <input type="text" id="taskInput" placeholder="Enter Task..." />
-          <button id="addTaskButton" onclick="addTask()">Add Task</button>
+          <input
+            type="text"
+            id="taskInput"
+            class="form-control w-50 shadow-sm"
+            placeholder="Enter Task..."
+          />
+          <button
+            id="addTaskButton"
+            class="btn btn-primary shadow-sm"
+            type="button"
+            onclick="addTask()"
+          >
+            Add Task
+          </button>
         </div>
 
-        <div class="task-items">
-          <ul id="taskList"></ul>
-        </div>
+        <div id="taskList"></div>
       </div>
     </div>
 
