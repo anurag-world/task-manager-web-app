@@ -51,7 +51,7 @@ input, button {
   font-size: 16px;
   color: #24292E;
 }
-input::placeholder {
+#taskInput::placeholder {
   font-size: 18px;
   color: #b5b5b5;
 }

@@ -23,10 +23,20 @@ function displayTasks() {
 
   tasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `
+    li.innerHTML = `<div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="${index}"
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault">
       ${task}
-      <button onclick="deleteTask(${index})" class="deleteBtn" role="button">Delete</button>
-    `;
+    </label>
+    <button onclick="deleteTask(${index})" class="deleteBtn" role="button">
+      Delete
+    </button>
+  </div>`;
     taskList.appendChild(li);
   });
 }
