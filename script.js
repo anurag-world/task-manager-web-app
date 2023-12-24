@@ -25,7 +25,7 @@ function displayTasks() {
     const li = document.createElement("li");
     li.innerHTML = `
       ${task}
-      <button onclick="deleteTask(${index})">Delete</button>
+      <button onclick="deleteTask(${index})" class="deleteBtn" role="button">Delete</button>
     `;
     taskList.appendChild(li);
   });
