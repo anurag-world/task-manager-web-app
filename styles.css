@@ -32,10 +32,17 @@ body {
 #task-list {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+#task-list-form {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
   gap: 12px;
 }
 #flexCheckDefault {
   margin-left: 0;
+  margin-top: 0;
 }
 #check-label {
   font-size: 18px;

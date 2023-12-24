@@ -31,12 +31,10 @@ function displayTasks() {
 
   tasks.forEach((task, index) => {
     const div = document.createElement("div");
-    div.setAttribute(
-      "class",
-      "form-check border border-2 border-info p-2 mb-2 rounded"
-    );
+    div.setAttribute("class", "form-check border border-2 border-info bg-info-subtle p-2 mb-2 rounded");
     div.setAttribute("id", "task-list");
-    div.innerHTML = `<input
+    div.innerHTML = `<div id="task-list-form">
+    <input
       class="form-check-input shadow-sm"
       type="checkbox"
       value="${index}"
@@ -50,9 +48,10 @@ function displayTasks() {
     >
     ${task}
     </label>
+    </div>
     <button
       onclick="deleteTask(${index})"
-      class="btn btn-outline-danger shadow-sm px-3 py-1"
+      class="btn btn-outline-danger shadow-sm px-2 py-1"
       role="button"
     >
       Delete
