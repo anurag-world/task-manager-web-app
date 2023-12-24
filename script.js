@@ -35,9 +35,14 @@ function displayTasks() {
   taskList.innerHTML = "";
 
   const clearTasks = document.getElementById("clearTasks");
-  clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
+
+  if (tasks.length > 0) {
+    clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
       Clear All Tasks
     </button>`;
+  } else {
+    clearTasks.innerHTML = "";
+  }
 
   tasks.forEach((task, index) => {
     const div = document.createElement("div");
