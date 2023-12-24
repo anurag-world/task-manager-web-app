@@ -20,7 +20,7 @@
         <h4 class="text-dark">By Anurag Vaishnav</h4>
       </div>
 
-      <div class="task-container shadow-sm">
+      <div class="task-container border border-2">
         <div class="task-manager">
           <input
             type="text"
@@ -30,13 +30,15 @@
           />
           <button
             id="addTaskButton"
-            class="btn btn-primary shadow-sm"
+            class="btn btn-secondary shadow-sm"
             type="button"
             onclick="addTask()"
           >
             Add Task
           </button>
         </div>
+
+        <div id="clearTasks"></div>
 
         <div id="taskList"></div>
       </div>
