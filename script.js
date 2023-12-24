@@ -1,4 +1,5 @@
 let tasks = [];
+let completed = false;
 
 function addTask() {
   const taskInput = document.getElementById("taskInput");
@@ -16,9 +17,16 @@ function deleteTask(index) {
   displayTasks();
 }
 
+function checkTask(index) {
+  completed = !completed;
+  const text = document.querySelector(".form-check-label");
+  if (completed) text.setAttribute("style", "text-decoration: line-through");
+  else text.removeAttribute("style");
+  console.log(text, index);
+}
+
 function displayTasks() {
   const taskList = document.getElementById("taskList");
-  console.log(taskList);
   taskList.innerHTML = "";
 
   tasks.forEach((task, index) => {
@@ -29,6 +37,7 @@ function displayTasks() {
       type="checkbox"
       value="${index}"
       id="flexCheckDefault"
+      onclick="checkTask(${index})"
     />
     <label class="form-check-label" for="flexCheckDefault">
       ${task}
