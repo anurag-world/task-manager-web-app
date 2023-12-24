@@ -32,8 +32,10 @@ body {
 #task-list {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 12px;
+}
+#flexCheckDefault {
+  margin-left: 0;
 }
 #check-label {
   font-size: 18px;

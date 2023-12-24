@@ -31,7 +31,10 @@ function displayTasks() {
 
   tasks.forEach((task, index) => {
     const div = document.createElement("div");
-    div.setAttribute("class", "form-check h-50");
+    div.setAttribute(
+      "class",
+      "form-check border border-2 border-info p-2 mb-2 rounded"
+    );
     div.setAttribute("id", "task-list");
     div.innerHTML = `<input
       class="form-check-input shadow-sm"
@@ -41,7 +44,7 @@ function displayTasks() {
       onclick="checkTask(${index})"
     />
     <label
-      class="form-check-label"
+      class="form-check-label text-wrap"
       id="check-label"
       for="flexCheckDefault"
     >
