@@ -3,9 +3,8 @@ import {
   createTasks,
   deleteTasks,
   updateTasks,
+  deleteAllTasks,
 } from "./modules/apis.js";
-
-let completed = false;
 
 // Create tasks
 function addTask() {
@@ -33,9 +32,12 @@ const btnClose = document.getElementById("btn-close");
 async function onUpdate(id) {
   const editTaskInput = document.getElementById("editTaskInput");
   const editValue = editTaskInput.value.trim();
-  await updateTasks(id, editValue);
-  displayTasks();
-  btnClose.click();
+
+  if (editValue !== "") {
+    await updateTasks(id, editValue);
+    displayTasks();
+    btnClose.click();
+  }
 }
 
 async function editTaskArea(id, task) {
@@ -44,18 +46,14 @@ async function editTaskArea(id, task) {
   editButton.onclick = () => onUpdate(id);
 }
 
+// Clear Task List
 function clearAllTasks() {
-  tasks.length = 0;
+  deleteAllTasks();
   displayTasks();
 }
 
-function checkTask(index) {
-  completed = !completed;
-  const text = document.querySelector(".form-check-label");
-  if (completed) text.setAttribute("style", "text-decoration: line-through");
-  else text.removeAttribute("style");
-  console.log(text, index);
-}
+const clearTasks = document.getElementById("clearTasks");
+clearTasks.addEventListener("click", () => clearAllTasks());
 
 async function displayTasks() {
   const tasksArr = await getAllTasks();
@@ -63,17 +61,16 @@ async function displayTasks() {
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
-  const clearTasks = document.getElementById("clearTasks");
-
+  // Show clear task button if task list is not empty
   if (tasksArr.length > 0) {
-    clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
+    clearTasks.innerHTML = `<button class="btn btn-warning" type="button">
       Clear All Tasks
     </button>`;
   } else {
     clearTasks.innerHTML = "";
   }
 
-  tasksArr.forEach((taskObj, index) => {
+  tasksArr.forEach((taskObj) => {
     const div = document.createElement("div");
     div.setAttribute(
       "class",
@@ -84,9 +81,9 @@ async function displayTasks() {
     <input
       class="form-check-input shadow-sm"
       type="checkbox"
-      value="${index}"
+      value="${taskObj._id}"
       id="flexCheckDefault"
-      onclick="checkTask(${index})"
+      ${taskObj.completed ? "checked" : ""}
     />
     <label
       class="form-check-label text-wrap"

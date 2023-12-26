@@ -15,7 +15,6 @@ export async function getAllTasks() {
     const data = await response.json();
     return data;
   } catch (error) {
-    //TODO: handle error
     console.error(error.message);
   }
 }
@@ -38,7 +37,6 @@ export async function createTasks(task) {
     const data = await response.json();
     console.log(data);
   } catch (error) {
-    //TODO: handle error
     console.error(error.message);
   }
 }
@@ -64,7 +62,6 @@ export async function updateTasks(taskId, updatedTaskText) {
     const data = await response.json();
     console.log(data);
   } catch (error) {
-    //TODO: handle error
     console.error(error.message);
   }
 }
@@ -89,7 +86,27 @@ export async function deleteTasks(taskId) {
     const data = await response.json();
     console.log(data);
   } catch (error) {
-    //TODO: handle error
+    console.error(error.message);
+  }
+}
+
+// Delete All Tasks API
+export async function deleteAllTasks() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/tasks/remove/all`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Could not delete task");
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
     console.error(error.message);
   }
 }
