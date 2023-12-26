@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
 
 // Create a new Task
 router.post("/create", async (req, res) => {
@@ -63,6 +63,16 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     await Task.findByIdAndDelete(taskId);
     res.status(200).json({ message: "Task deleted successfully" });
+  } catch (error) {
+    res.status(404).json({ message: "Task not found!" });
+  }
+});
+
+// Delete all tasks
+router.delete("/remove/all", async (req, res) => {
+  try {
+    await Task.deleteMany({});
+    res.status(200).json({ message: "Tasks deleted successfully" });
   } catch (error) {
     res.status(404).json({ message: "Task not found!" });
   }
