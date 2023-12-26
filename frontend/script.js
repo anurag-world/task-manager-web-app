@@ -1,20 +1,47 @@
-let tasks = [];
+import {
+  getAllTasks,
+  createTasks,
+  deleteTasks,
+  updateTasks,
+} from "./modules/apis.js";
+
 let completed = false;
 
+// Create tasks
 function addTask() {
   const taskInput = document.getElementById("taskInput");
   const taskText = taskInput.value.trim();
 
   if (taskText !== "") {
-    tasks.push(taskText);
+    createTasks(taskText);
     displayTasks();
     taskInput.value = "";
   }
 }
+const addTaskButton = document.getElementById("addTaskButton");
+addTaskButton.addEventListener("click", addTask);
 
-function deleteTask(index) {
-  tasks.splice(index, 1);
+// Delete tasks
+function deleteTask(id) {
+  if (id !== undefined) deleteTasks(id);
   displayTasks();
+}
+
+const editButton = document.getElementById("edit-button");
+const btnClose = document.getElementById("btn-close");
+
+async function onUpdate(id) {
+  const editTaskInput = document.getElementById("editTaskInput");
+  const editValue = editTaskInput.value.trim();
+  await updateTasks(id, editValue);
+  displayTasks();
+  btnClose.click();
+}
+
+async function editTaskArea(id, task) {
+  const editTaskInput = document.getElementById("editTaskInput");
+  editTaskInput.value = task;
+  editButton.onclick = () => onUpdate(id);
 }
 
 function clearAllTasks() {
@@ -30,13 +57,15 @@ function checkTask(index) {
   console.log(text, index);
 }
 
-function displayTasks() {
+async function displayTasks() {
+  const tasksArr = await getAllTasks();
+
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
   const clearTasks = document.getElementById("clearTasks");
 
-  if (tasks.length > 0) {
+  if (tasksArr.length > 0) {
     clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
       Clear All Tasks
     </button>`;
@@ -44,7 +73,7 @@ function displayTasks() {
     clearTasks.innerHTML = "";
   }
 
-  tasks.forEach((task, index) => {
+  tasksArr.forEach((taskObj, index) => {
     const div = document.createElement("div");
     div.setAttribute(
       "class",
@@ -64,15 +93,32 @@ function displayTasks() {
       id="check-label"
       for="flexCheckDefault"
     >
-    ${task}
+    ${taskObj.task}
     </label>
-    </div>
+    </div>`;
 
-    <button
-      onclick="deleteTask(${index})"
-      class="btn btn-close shadow-sm px-2 py-1"
-      aria-label="Close"
-    />`;
-    taskList.appendChild(div);
+    const taskContainer = document.createElement("div");
+    taskContainer.setAttribute("id", "taskContainer");
+
+    // Create Edit button
+    const editButton = document.createElement("Button");
+    editButton.setAttribute("type", "button");
+    editButton.setAttribute("class", "btn btn-success shadow-sm ms-2 mb-2");
+    editButton.setAttribute("data-bs-toggle", "modal");
+    editButton.setAttribute("data-bs-target", "#editModal");
+    editButton.onclick = () => editTaskArea(taskObj._id, taskObj.task);
+    editButton.innerText = "Edit";
+
+    // Create Delete Button
+    const Button = document.createElement("Button");
+    Button.setAttribute("class", "btn btn-danger shadow-sm ms-2 mb-2");
+    Button.onclick = () => deleteTask(taskObj._id);
+    Button.innerText = "Delete";
+
+    taskContainer.appendChild(div);
+    taskContainer.appendChild(editButton);
+    taskContainer.appendChild(Button);
+    taskList.appendChild(taskContainer);
   });
 }
+displayTasks();

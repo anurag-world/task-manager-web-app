@@ -32,7 +32,6 @@
             id="addTaskButton"
             class="btn btn-secondary shadow-sm"
             type="button"
-            onclick="addTask()"
           >
             Add Task
           </button>
@@ -42,6 +41,55 @@
 
         <div id="taskList"></div>
       </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="editModal"
+        tabindex="-1"
+        aria-labelledby="editModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="editModalLabel">Edit Task</h1>
+              <button
+                id="btn-close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <input
+                type="text"
+                id="editTaskInput"
+                class="form-control w-100 shadow-sm"
+                placeholder="Enter Task..."
+              />
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" id="edit-button">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script
@@ -49,6 +97,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
