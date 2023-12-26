@@ -1,8 +1,8 @@
-import { getAllTasks, createTasks } from "./modules/apis.js";
+import { getAllTasks, createTasks, deleteTasks } from "./modules/apis.js";
 
-let tasks = [];
 let completed = false;
 
+// Create tasks
 function addTask() {
   const taskInput = document.getElementById("taskInput");
   const taskText = taskInput.value.trim();
@@ -16,8 +16,9 @@ function addTask() {
 const addTaskButton = document.getElementById("addTaskButton");
 addTaskButton.addEventListener("click", addTask);
 
-function deleteTask(index) {
-  tasks.splice(index, 1);
+// Delete tasks
+function deleteTask(id) {
+  if (id !== undefined) deleteTasks(id);
   displayTasks();
 }
 
@@ -72,14 +73,21 @@ async function displayTasks() {
     >
     ${taskObj.task}
     </label>
-    </div>
+    </div>`;
 
-    <button
-      onclick="deleteTask(${index})"
-      class="btn btn-close shadow-sm px-2 py-1"
-      aria-label="Close"
-    />`;
-    taskList.appendChild(div);
+    const taskContainer = document.createElement("div");
+    taskContainer.setAttribute("id", "taskContainer");
+
+    // Create Delete Button
+    const Button = document.createElement("Button");
+    Button.setAttribute("class", "btn btn-danger shadow-sm ms-2 mb-2");
+    Button.setAttribute("aria-label", "Close");
+    Button.onclick = () => deleteTask(taskObj._id);
+    Button.innerText = "Delete";
+
+    taskContainer.appendChild(div);
+    taskContainer.appendChild(Button);
+    taskList.appendChild(taskContainer);
   });
 }
 displayTasks();

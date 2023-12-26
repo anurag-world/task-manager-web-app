@@ -33,10 +33,12 @@ body {
   justify-content: end;
   margin-bottom: 16px;
 }
-#task-list {
+#taskContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+}
+#task-list {
+  width: 100%;
 }
 #task-list-form {
   display: flex;

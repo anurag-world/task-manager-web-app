@@ -8,7 +8,7 @@ export async function getAllTasks() {
       },
     });
 
-    if (!response) {
+    if (!response.ok) {
       throw new Error("Could not get all tasks");
     }
 
@@ -32,13 +32,34 @@ export async function createTasks(task) {
           body: JSON.stringify({ task }),
         });
     
-        if (!response) {
-          throw new Error("Could not create tasks");
+        if (!response.ok) {
+          throw new Error("Could not create task");
         }
     
         const data = await response.json();
         console.log(data);
-        return data;
+      } catch (error) {
+        //TODO: handle error
+        console.error(error.message);
+      }
+}
+
+// Delete Tasks by Id API
+export async function deleteTasks(taskId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/tasks/delete/${taskId}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error("Could not delete task");
+        }
+    
+        const data = await response.json();
+        console.log(data);
       } catch (error) {
         //TODO: handle error
         console.error(error.message);
