@@ -78,14 +78,21 @@ async function displayTasks() {
     const taskContainer = document.createElement("div");
     taskContainer.setAttribute("id", "taskContainer");
 
+    // Create Edit button
+    const editButton = document.createElement("Button");
+    editButton.setAttribute("class", "btn btn-success shadow-sm ms-2 mb-2");
+    editButton.setAttribute("id", "edit-button");
+    editButton.onclick = () => {};
+    editButton.innerText = "Edit";
+
     // Create Delete Button
     const Button = document.createElement("Button");
     Button.setAttribute("class", "btn btn-danger shadow-sm ms-2 mb-2");
-    Button.setAttribute("aria-label", "Close");
     Button.onclick = () => deleteTask(taskObj._id);
     Button.innerText = "Delete";
 
     taskContainer.appendChild(div);
+    taskContainer.appendChild(editButton);
     taskContainer.appendChild(Button);
     taskList.appendChild(taskContainer);
   });

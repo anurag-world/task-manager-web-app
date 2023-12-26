@@ -5,15 +5,19 @@ body {
   box-sizing: border-box;
   background-color: aliceblue;
 }
+button {
+  max-height: 50px;
+}
 .container-fluid {
   padding: 0;
   margin-top: 16px;
+  margin-bottom: 50px;
 }
 #headTitle {
   text-align: center;
 }
 .task-container {
-  max-width: 600px;
+  max-width: 750px;
   margin: 50px auto 0;
   padding: 16px;
   border-radius: 8px;
@@ -38,7 +42,8 @@ body {
   justify-content: space-between;
 }
 #task-list {
-  width: 100%;
+  display: flex;
+  flex: 1;
 }
 #task-list-form {
   display: flex;
