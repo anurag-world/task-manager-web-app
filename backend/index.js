@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const taskRoute = require("./routes/tasks")
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,28 +12,17 @@ mongoose
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.error(err));
 
-let tasks = [];
+// Middleware
+app.use(express.json());
 
-// Get all tasks
-app.get("/tasks", (req, res) => {
-  res.json(tasks);
+// Routes
+app.get('/', (req, res) => {
+res.send("<p>Website is running!</p>");
 });
-
-// Add a new task
-app.post("/tasks", (req, res) => {
-  const { task } = req.body;
-  tasks.push(task);
-  res.status(201).json({ message: "Task added successfully" });
-});
-
-// Delete a task
-app.delete("/tasks/:id", (req, res) => {
-  const taskId = parseInt(req.params.id);
-  tasks.splice(taskId, 1);
-  res.status(200).json({ message: "Task deleted successfully" });
-});
+app.use("/api/tasks", taskRoute);
 
 const PORT = 3000;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
