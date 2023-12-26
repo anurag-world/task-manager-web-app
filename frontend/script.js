@@ -1,4 +1,9 @@
-import { getAllTasks, createTasks, deleteTasks } from "./modules/apis.js";
+import {
+  getAllTasks,
+  createTasks,
+  deleteTasks,
+  updateTasks,
+} from "./modules/apis.js";
 
 let completed = false;
 
@@ -20,6 +25,23 @@ addTaskButton.addEventListener("click", addTask);
 function deleteTask(id) {
   if (id !== undefined) deleteTasks(id);
   displayTasks();
+}
+
+const editButton = document.getElementById("edit-button");
+const btnClose = document.getElementById("btn-close");
+
+async function onUpdate(id) {
+  const editTaskInput = document.getElementById("editTaskInput");
+  const editValue = editTaskInput.value.trim();
+  await updateTasks(id, editValue);
+  displayTasks();
+  btnClose.click();
+}
+
+async function editTaskArea(id, task) {
+  const editTaskInput = document.getElementById("editTaskInput");
+  editTaskInput.value = task;
+  editButton.onclick = () => onUpdate(id);
 }
 
 function clearAllTasks() {
@@ -80,9 +102,11 @@ async function displayTasks() {
 
     // Create Edit button
     const editButton = document.createElement("Button");
+    editButton.setAttribute("type", "button");
     editButton.setAttribute("class", "btn btn-success shadow-sm ms-2 mb-2");
-    editButton.setAttribute("id", "edit-button");
-    editButton.onclick = () => {};
+    editButton.setAttribute("data-bs-toggle", "modal");
+    editButton.setAttribute("data-bs-target", "#editModal");
+    editButton.onclick = () => editTaskArea(taskObj._id, taskObj.task);
     editButton.innerText = "Edit";
 
     // Create Delete Button

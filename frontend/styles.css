@@ -32,6 +32,9 @@ button {
 #taskInput::placeholder {
   color: #b5b5b5;
 }
+#editTaskInput::placeholder {
+  color: #b5b5b5;
+}
 #clearTasks {
   display: flex;
   justify-content: end;

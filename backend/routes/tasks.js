@@ -11,6 +11,18 @@ router.get("/all", async (req, res) => {
   }
 });
 
+// Get single task
+router.get("/:id", async (req, res) => {
+  const taskId = req.params.id;
+
+  try {
+    const task = await Task.findById(taskId);
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
+
 // Create a new Task
 router.post("/create", async (req, res) => {
   const { task } = req.body;
