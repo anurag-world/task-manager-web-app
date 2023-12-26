@@ -1,10 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const taskRoute = require("./routes/tasks")
+const path = require("path");
+const taskRoute = require("./routes/tasks");
 
 const app = express();
+const PORT = 3000;
+
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 // Connect to MongoDB
 mongoose
@@ -12,16 +16,11 @@ mongoose
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.error(err));
 
-// Middleware
-app.use(express.json());
-
 // Routes
-app.get('/', (req, res) => {
-res.send("<p>Website is running!</p>");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
 });
 app.use("/api/tasks", taskRoute);
-
-const PORT = 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
