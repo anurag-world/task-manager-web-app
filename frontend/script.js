@@ -1,3 +1,5 @@
+import { getAllTasks, createTasks } from "./modules/apis.js";
+
 let tasks = [];
 let completed = false;
 
@@ -6,11 +8,13 @@ function addTask() {
   const taskText = taskInput.value.trim();
 
   if (taskText !== "") {
-    tasks.push(taskText);
+    createTasks(taskText);
     displayTasks();
     taskInput.value = "";
   }
 }
+const addTaskButton = document.getElementById("addTaskButton");
+addTaskButton.addEventListener("click", addTask);
 
 function deleteTask(index) {
   tasks.splice(index, 1);
@@ -30,13 +34,15 @@ function checkTask(index) {
   console.log(text, index);
 }
 
-function displayTasks() {
+async function displayTasks() {
+  const tasksArr = await getAllTasks();
+
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
   const clearTasks = document.getElementById("clearTasks");
 
-  if (tasks.length > 0) {
+  if (tasksArr.length > 0) {
     clearTasks.innerHTML = `<button class="btn btn-warning" type="button" onclick="clearAllTasks()">
       Clear All Tasks
     </button>`;
@@ -44,7 +50,7 @@ function displayTasks() {
     clearTasks.innerHTML = "";
   }
 
-  tasks.forEach((task, index) => {
+  tasksArr.forEach((taskObj, index) => {
     const div = document.createElement("div");
     div.setAttribute(
       "class",
@@ -64,7 +70,7 @@ function displayTasks() {
       id="check-label"
       for="flexCheckDefault"
     >
-    ${task}
+    ${taskObj.task}
     </label>
     </div>
 
@@ -76,3 +82,4 @@ function displayTasks() {
     taskList.appendChild(div);
   });
 }
+displayTasks();
