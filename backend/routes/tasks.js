@@ -35,6 +35,26 @@ router.post("/create", async (req, res) => {
   }
 });
 
+// Toggle Complete status
+router.put("/status/:id", async (req, res) => {
+  const taskId = req.params.id;
+  const { status } = req.body;
+
+  try {
+    const updateStatus = await Task.findByIdAndUpdate(
+      taskId,
+      { completed: status },
+      { new: true }
+    );
+    if (!updateStatus) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.status(200).json({ message: "Task status updated successfully", updateStatus });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Update a task
 router.put("/update/:id", async (req, res) => {
   const taskId = req.params.id;
