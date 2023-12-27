@@ -7,12 +7,12 @@ import {
 } from "./modules/apis.js";
 
 // Create tasks
-function addTask() {
+async function addTask() {
   const taskInput = document.getElementById("taskInput");
   const taskText = taskInput.value.trim();
 
   if (taskText !== "") {
-    createTasks(taskText);
+    await createTasks(taskText);
     displayTasks();
     taskInput.value = "";
   }
@@ -21,8 +21,8 @@ const addTaskButton = document.getElementById("addTaskButton");
 addTaskButton.addEventListener("click", addTask);
 
 // Delete tasks
-function deleteTask(id) {
-  if (id !== undefined) deleteTasks(id);
+async function deleteTask(id) {
+  if (id !== undefined) await deleteTasks(id);
   displayTasks();
 }
 
@@ -40,15 +40,15 @@ async function onUpdate(id) {
   }
 }
 
-async function editTaskArea(id, task) {
+function editTaskArea(id, task) {
   const editTaskInput = document.getElementById("editTaskInput");
   editTaskInput.value = task;
   editButton.onclick = () => onUpdate(id);
 }
 
 // Clear Task List
-function clearAllTasks() {
-  deleteAllTasks();
+async function clearAllTasks() {
+  await deleteAllTasks();
   displayTasks();
 }
 
@@ -84,6 +84,7 @@ async function displayTasks() {
       value="${taskObj._id}"
       id="flexCheckDefault"
       ${taskObj.completed ? "checked" : ""}
+      onclick="toggleStatus(this.value, ${taskObj.completed})"
     />
     <label
       class="form-check-label text-wrap"
